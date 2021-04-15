@@ -27,6 +27,8 @@ class PrototypesController < ApplicationController
 
   def update
     @prototype=Prototype.find(params[:id])
+    @comment=Comment.new
+    @comments=@prototype.comments.order("created_at DESC").includes(:user)
     if @prototype.update(prototype_params)
       render action: :show
     else
